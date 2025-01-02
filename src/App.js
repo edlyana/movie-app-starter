@@ -11,15 +11,15 @@ function App() {
     const controller = new AbortController();
 
     // 2nd step link cleaner to api !!
-    fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`, {signal: controller.signal,})
+    fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`, { signal: controller.signal })
     .then((res) => res.json())
-    .then((data) => data.Response === "True" && setMovies(data.Search));
+    .then((data) => data.Response === "True" && setMovies(data.Search))
 
     // ! Only show error in log (fofr developer to troubleshoot)
-    // .catch((err) => console.log(err));
+    .catch((err) => console.log(err));
 
     // 3rd step call the abort in return !!
-    return() => controller.abort();
+    return () => controller.abort();
   }, [query]);
 
   // !! fetch re-renders many times because it is in the App component,, the STATE (movies) changes = re-renders many times in line 9
